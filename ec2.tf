@@ -12,4 +12,4 @@ resource "aws_instance" "main" {
   # output "ec2_ssh_command" {
   #     value = "ssh -i dl-ansible.pem ubuntu@ec2-${replace(aws_instance.main.public_ip, ".", "-")}.compute-1.amazonaws.com"
   user_data = base64encode(file("user.sh"))
- }
+}
