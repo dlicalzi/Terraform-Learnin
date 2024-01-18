@@ -1,15 +1,15 @@
 variable "default_tags" {
-    type = map(string)
-    default = {
-      "env" = "dlicalzi"
-    }
-    description = "Describpetion of my varibles"  
+  type = map(string)
+  default = {
+    "env" = "dlicalzi"
+  }
+  description = "Describpetion of my varibles"
 }
 variable "public_subnet_count" {
-  type = number
+  type        = number
   description = "subnet deconflict"
-  default = 2
-  
+  default     = 2
+
 }
 variable "private_subnet_count" {
   type        = number
