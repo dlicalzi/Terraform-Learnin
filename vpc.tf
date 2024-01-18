@@ -5,7 +5,15 @@ terraform {
       version = "5.32.1"
     }
   }
+
+  backend "s3" {
+    bucket = "dlmakesabucketfromterraform"
+    key    = "terraform.tfstate"
+    region = "us-east-1"
+  }
 }
+
+
 
 provider "aws" {
   # Configuration options
@@ -96,14 +104,14 @@ resource "aws_route_table" "private" {
 
 # Private Route
 resource "aws_route" "private" {
-  route_table_id = aws_route_table.private.id
+  route_table_id         = aws_route_table.private.id
   destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id = aws_nat_gateway.main_NAT.id
+  nat_gateway_id         = aws_nat_gateway.main_NAT.id
 }
 
 # Private RT Association
 resource "aws_route_table_association" "private" {
-  count = var.private_subnet_count
-  subnet_id = element(aws_subnet.private.*.id, count.index)
+  count          = var.private_subnet_count
+  subnet_id      = element(aws_subnet.private.*.id, count.index)
   route_table_id = aws_route_table.private.id
 }

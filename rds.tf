@@ -1,6 +1,6 @@
 # security
 module "db_sg" {
-  source = "./modules/rds"
+  source = "C:\\Terraformin\\modules\\rds"
   sg_name = "${var.default_tags.env}-dbsg"
   description = "SG for Terraform demo"
   vpc_id = aws_vpc.main.id
@@ -11,7 +11,7 @@ module "db_sg" {
 
 # db subnet group
 resource "aws_db_subnet_group" "db" {
-  name_prefix = "vbtfpostgresql"
+  name_prefix = "dlspostgresql"
   subnet_ids = aws_subnet.private.*.id
   tags = {
     "Name" = "${var.default_tags.env}-group"
@@ -29,7 +29,7 @@ resource "aws_rds_cluster" "db" {
     min_capacity = 0.5
   }
   availability_zones = aws_subnet.private[*].availability_zone
-  database_name = "vbtfpostgresql"
+  database_name = "dlspostgresql"
   vpc_security_group_ids = [module.db_sg.sg_id]
   master_username = var.db_credentials.username
   master_password = var.db_credentials.password
